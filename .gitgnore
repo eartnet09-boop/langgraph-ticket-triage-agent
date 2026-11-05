@@ -1,0 +1,15 @@
+# Ambiente virtual e cache do Python
+__pycache__/
+*.py[cod]
+.venv/
+
+# Checkpoints do Jupyter Notebook (evita conflitos no Git)
+.ipynb_checkpoints/
+
+# Pastas de dados pesados e modelos baixados (NÃO subir modelos de IA pro Git)
+data/*.bin
+data/*.safetensors
+models/
+
+# Configurações do sistema operacional
+.DS_Store
