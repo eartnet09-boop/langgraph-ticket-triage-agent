@@ -1,0 +1,29 @@
+# O '!' executa um comando no terminal do Linux.
+# O 'pip install' instala os pacotes Python necessários.
+# Estamos fixando as versões (==) para evitar que atualizações futuras quebrem o código.
+pip install -q langgraph==1.2.5 langchain==1.3.9 langchain-huggingface transformers==5.13.1 accelerate torch
+
+# Importa a classe AutoTokenizer, que transforma texto humano em números que a IA entende
+from transformers import AutoTokenizer
+
+# Importa a classe AutoModelForCausalLM, que carrega o modelo gerador de texto
+from transformers import AutoModelForCausalLM
+
+# Define o nome do modelo no Hugging Face (Qwen 2.5 de 1.5 Bilhões de parâmetros)
+nome_modelo = "Qwen/Qwen2.5-1.5B-Instruct"
+
+print(" Baixando o Tokenizer...")
+# Carrega o tokenizer do modelo. Ele lida com a pontuação e divisão das palavras.
+tokenizer = AutoTokenizer.from_pretrained(nome_modelo)
+
+print(" Baixando o Modelo (isso pode levar de 1 a 3 minutos)...")
+# Carrega o modelo para a memória. 
+# O 'device_map="auto"' diz: "Coloque na GPU se tiver disponível, senão coloque na CPU".
+# O 'torch_dtype="auto"' otimiza a precisão dos números para economizar memória.
+modelo = AutoModelForCausalLM.from_pretrained(
+    nome_modelo,
+    device_map="auto",
+    torch_dtype="auto"
+)
+
+print(" Modelo carregado com sucesso e pronto para uso!")
